@@ -7,7 +7,7 @@ module "velero_minio_tenant" {
   namespace               = data.kubernetes_namespace.velero.metadata[0].name
   create_namespace        = false
 
-  tenant_name             = local.velero_minio_tenant_name
+  chart_install_name      = local.velero_minio_tenant_name
 
   pool_name = local.velero_minio_tenant_pool
   pool_size_gb = var.velero_minio_pool_size_gb
