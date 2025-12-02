@@ -72,3 +72,14 @@ variable "velero_minio_pool_tolerations" {
   default     = []
 }
 
+variable "velero_internal_kubectl_repository" {
+  description = "The repository URL for the kubectl image used by Velero."
+  type        = string
+  default     = "bitnamilegacy/kubectl"
+}
+
+variable "velero_internal_kubectl_tag" {
+  description = "The version tag for the kubectl image used by Velero. If null, deployed cluster version is used."
+  type        = string
+  default     = null
+}

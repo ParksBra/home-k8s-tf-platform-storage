@@ -13,4 +13,6 @@ module "velero" {
   bucket_region = local.velero_bucket_region
   bucket_endpoint = local.velero_bucket_endpoint
 
+  internal_kubectl_repository = var.velero_internal_kubectl_repository
+  internal_kubectl_tag = var.velero_internal_kubectl_tag
 }
