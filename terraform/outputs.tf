@@ -40,7 +40,7 @@ output "velero_tolerations" {
 
 output "velero_minio_tenant_name" {
   description = "The name of the Velero MinIO tenant."
-  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].chart_install_name : ""
+  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].tenant_name : ""
 }
 
 output "velero_minio_tenant_bucket_access_id" {
