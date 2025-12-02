@@ -1,31 +1,16 @@
-output "minio_operator_namespace_name" {
+output "minio_operator_namespace" {
   description = "The namespace where the MinIO Operator is deployed."
   value       = data.kubernetes_namespace.minio_operator.metadata[0].name
 }
 
-output "minio_operator_namespace_id" {
-  description = "The namespace ID where the MinIO Operator is deployed."
-  value       = data.kubernetes_namespace.minio_operator.id
-}
-
-output "openebs_namespace_name" {
+output "openebs_namespace" {
   description = "The namespace where OpenEBS is deployed."
   value       = data.kubernetes_namespace.openebs.metadata[0].name
 }
 
-output "openebs_namespace_id" {
-  description = "The namespace ID where OpenEBS is deployed."
-  value       = data.kubernetes_namespace.openebs.id
-}
-
-output "velero_namespace_name" {
+output "velero_namespace" {
   description = "The namespace where Velero is deployed."
   value       = data.kubernetes_namespace.velero.metadata[0].name
-}
-
-output "velero_namespace_id" {
-  description = "The namespace ID where Velero is deployed."
-  value       = data.kubernetes_namespace.velero.id
 }
 
 output "velero_node_selector_labels" {
