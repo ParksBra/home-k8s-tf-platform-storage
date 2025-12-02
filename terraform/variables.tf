@@ -1,3 +1,41 @@
+# Chart shared variables
+variable "chart_linting_enabled" {
+  description = "Whether to enable Helm chart linting."
+  type        = bool
+  default     = true
+}
+
+variable "chart_recreate_pods" {
+  description = "Whether to recreate pods when deploying the Helm chart."
+  type        = bool
+  default     = false
+}
+
+variable "chart_upgrade_install" {
+  description = "Whether to install the Helm chart if it is not already installed during an upgrade."
+  type        = bool
+  default     = true
+}
+
+variable "chart_replace" {
+  description = "Whether to replace the Helm chart if it is already installed."
+  type        = bool
+  default     = false
+}
+
+variable "chart_dependency_update" {
+  description = "Whether to update chart dependencies before installing or upgrading the Helm chart."
+  type        = bool
+  default     = true
+}
+
+variable "chart_cleanup_on_fail" {
+  description = "Whether to cleanup resources if the Helm chart installation or upgrade fails."
+  type        = bool
+  default     = true
+}
+
+# Storage and namespace variables
 variable "openebs_enabled" {
   description = "Whether to deploy OpenEBS for storage."
   type        = bool
