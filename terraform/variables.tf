@@ -68,12 +68,7 @@ variable "velero_minio_pool_node_selector" {
 
 variable "velero_minio_pool_tolerations" {
   description = "The tolerations to use for the Velero MinIO tenant pool pods."
-  type        = list(object({
-    key      = string
-    operator = string
-    value    = string
-    effect   = string
-  }))
+  type        = list
   default     = []
 }
 
