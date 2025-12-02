@@ -9,6 +9,7 @@ data "kubernetes_namespace" "openebs" {
   depends_on = [
     kubernetes_namespace.openebs,
   ]
+  count = var.openebs_enabled ? 1 : 0
   metadata {
     name = var.openebs_namespace
   }
@@ -25,6 +26,7 @@ data "kubernetes_namespace" "minio_operator" {
   depends_on = [
     kubernetes_namespace.minio_operator,
   ]
+  count = var.minio_operator_enabled ? 1 : 0
   metadata {
     name = var.minio_operator_namespace
   }
@@ -41,6 +43,7 @@ data "kubernetes_namespace" "velero" {
   depends_on = [
     kubernetes_namespace.velero,
   ]
+  count = var.velero_enabled ? 1 : 0
   metadata {
     name = var.velero_namespace
   }

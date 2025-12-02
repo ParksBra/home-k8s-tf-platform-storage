@@ -1,52 +1,67 @@
+output "minio_operator_enabled" {
+  description = "Indicates if the MinIO Operator is enabled."
+  value       = var.minio_operator_enabled
+}
+
 output "minio_operator_namespace" {
   description = "The namespace where the MinIO Operator is deployed."
-  value       = data.kubernetes_namespace.minio_operator.metadata[0].name
+  value       = var.minio_operator_enabled ? data.kubernetes_namespace.minio_operator[0].metadata[0].name : ""
+}
+
+output "openebs_enabled" {
+  description = "Indicates if OpenEBS is enabled."
+  value       = var.openebs_enabled
 }
 
 output "openebs_namespace" {
   description = "The namespace where OpenEBS is deployed."
-  value       = data.kubernetes_namespace.openebs.metadata[0].name
+  value       = var.openebs_enabled ? data.kubernetes_namespace.openebs[0].metadata[0].name : ""
+}
+
+output "velero_enabled" {
+  description = "Indicates if Velero is enabled."
+  value       = var.velero_enabled
 }
 
 output "velero_namespace" {
   description = "The namespace where Velero is deployed."
-  value       = data.kubernetes_namespace.velero.metadata[0].name
+  value       = var.velero_enabled ? data.kubernetes_namespace.velero[0].metadata[0].name : ""
 }
 
 output "velero_node_selector_labels" {
   description = "The node selector labels used by the Velero pods."
-  value       = var.velero_minio_pool_node_selector
+  value       = var.velero_enabled ? var.velero_minio_pool_node_selector : {}
 }
 
 output "velero_tolerations" {
   description = "The tolerations applied to the Velero pods."
-  value       = var.velero_minio_pool_tolerations
+  value       = var.velero_enabled ? var.velero_minio_pool_tolerations : []
 }
 
 output "velero_minio_tenant_name" {
   description = "The name of the Velero MinIO tenant."
-  value       = module.velero_minio_tenant.tenant_name
+  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].chart_install_name : ""
 }
 
 output "velero_minio_tenant_bucket_access_id" {
   description = "The access ID for the Velero MinIO tenant bucket."
-  value       = module.velero_minio_tenant.tenant_access_id
+  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].tenant_access_id : ""
 }
 
 output "velero_minio_tenant_bucket_access_key" {
   description = "The access key for the Velero MinIO tenant bucket."
-  value       = module.velero_minio_tenant.tenant_access_key
+  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].tenant_access_key : ""
   sensitive   = true
 }
 
 output "velero_minio_tenant_service_address" {
   description = "The address of the Velero MinIO tenant service."
-  value       = module.velero_minio_tenant.tenant_service_address
+  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].tenant_service_address : ""
 }
 
 output "velero_minio_tenant_service_protocol" {
   description = "The protocol used by the Velero MinIO tenant service."
-  value       = module.velero_minio_tenant.tenant_service_protocol
+  value       = length(module.velero_minio_tenant) > 0 ? module.velero_minio_tenant[0].tenant_service_protocol : ""
 }
 
 output "velero_minio_tenant_bucket_name" {

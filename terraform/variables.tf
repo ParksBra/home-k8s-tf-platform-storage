@@ -1,3 +1,9 @@
+variable "openebs_enabled" {
+  description = "Whether to deploy OpenEBS for storage."
+  type        = bool
+  default     = true
+}
+
 variable "openebs_namespace" {
   description = "The Kubernetes namespace in which to deploy OpenEBS."
   type        = string
@@ -10,6 +16,12 @@ variable "create_openebs_namespace" {
   default     = true
 }
 
+variable "minio_operator_enabled" {
+  description = "Whether to deploy the MinIO Operator."
+  type        = bool
+  default     = true
+}
+
 variable "minio_operator_namespace" {
   description = "The Kubernetes namespace in which to deploy the MinIO Operator."
   type        = string
@@ -18,6 +30,12 @@ variable "minio_operator_namespace" {
 
 variable "create_minio_operator_namespace" {
   description = "Whether to create the MinIO Operator namespace."
+  type        = bool
+  default     = true
+}
+
+variable "velero_enabled" {
+  description = "Whether to deploy Velero with MinIO tenant for backups. Requires MinIO Operator to be enabled."
   type        = bool
   default     = true
 }

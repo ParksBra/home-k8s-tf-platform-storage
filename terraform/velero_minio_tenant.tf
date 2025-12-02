@@ -1,10 +1,11 @@
 module "velero_minio_tenant" {
+  count = var.velero_enabled && var.minio_operator_enabled ? 1 : 0
   depends_on = [
     module.minio_operator,
   ]
   source = "github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=create_platform_tf"
 
-  namespace               = data.kubernetes_namespace.velero.metadata[0].name
+  namespace               = data.kubernetes_namespace.velero[0].metadata[0].name
   create_namespace        = false
 
   chart_install_name      = local.velero_minio_tenant_name
