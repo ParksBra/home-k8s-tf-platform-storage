@@ -62,7 +62,7 @@ variable "velero_minio_pool_node_selector" {
   description = "The node selector to use for the Velero MinIO tenant pool pods."
   type        = map(string)
   default     = {
-    minio.io/storage-node = "true"
+    "minio.io/storage-node" = "true"
   }
 }
 
