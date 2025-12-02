@@ -3,7 +3,7 @@ module "velero" {
   depends_on = [
     module.velero_minio_tenant,
   ]
-  source = "github.com/ParksBra/home-k8s-tf-lib//modules/velero_s3_backup?ref=create_platform_tf"
+  source = "github.com/ParksBra/home-k8s-tf-lib//modules/velero_s3_backup?ref=1.0.0"
 
   namespace = data.kubernetes_namespace.velero[0].metadata[0].name
   create_namespace = false

@@ -3,7 +3,7 @@ module "velero_minio_tenant" {
   depends_on = [
     module.minio_operator,
   ]
-  source = "github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=create_platform_tf"
+  source = "github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=1.0.0"
 
   namespace               = data.kubernetes_namespace.velero[0].metadata[0].name
   create_namespace        = false
