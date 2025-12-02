@@ -2,6 +2,14 @@ locals {
   velero_minio_tenant_name = "velero-minio-tenant"
   velero_minio_tenant_pool = "velero-minio-pool"
 
+  velero_minio_tenant_buckets = [
+    {
+      name = "velero"
+      objectLock = false
+      region = "minio"
+    }
+  ]
+
   velero_namespace = "velero"
 
   velero_bucket_name = module.velero_minio_tenant.tenant_bucket_names[0]
