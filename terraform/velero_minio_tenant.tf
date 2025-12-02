@@ -16,4 +16,6 @@ module "velero_minio_tenant" {
   pool_storage_class_name = var.velero_minio_pool_storage_class_name
   pool_node_selector = var.velero_minio_pool_node_selector
   pool_tolerations = var.velero_minio_pool_tolerations
+  pool_user_id = var.velero_minio_pool_user_id
+  pool_group_id = var.velero_minio_pool_group_id
 }

@@ -34,6 +34,18 @@ variable "create_velero_namespace" {
   default     = true
 }
 
+variable "velero_minio_pool_user_id" {
+  description = "The user ID to run the Velero MinIO tenant pool pods as."
+  type        = number
+  default     = 1000
+}
+
+variable "velero_minio_pool_group_id" {
+  description = "The group ID to run the Velero MinIO tenant pool pods as."
+  type        = number
+  default     = 1000
+}
+
 variable "velero_minio_pool_size_gb" {
   description = "The size in GB of each volume in the Velero MinIO tenant pool."
   type        = number
