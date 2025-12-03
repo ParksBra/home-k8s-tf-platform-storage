@@ -3,7 +3,7 @@ module "velero" {
   depends_on = [
     module.velero_minio_tenant,
   ]
-  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/velero_s3_backup?ref=1.1.0"
+  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/velero_s3_backup?ref=add_velero_backup_scheduling"
 
   chart_cleanup_on_fail       = var.chart_cleanup_on_fail
   chart_dependency_update     = var.chart_dependency_update
@@ -23,4 +23,8 @@ module "velero" {
 
   internal_kubectl_repository = var.velero_internal_kubectl_repository
   internal_kubectl_tag        = var.velero_internal_kubectl_tag
+
+  scheduled_backups                   = var.velero_scheduled_backups
+  scheduled_backup_common_labels      = var.velero_scheduled_backup_common_labels
+  scheduled_backup_common_annotations = var.velero_scheduled_backup_common_annotations
 }

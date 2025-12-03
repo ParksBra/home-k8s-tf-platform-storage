@@ -3,7 +3,7 @@ module "velero_minio_tenant" {
   depends_on = [
     module.minio_operator,
   ]
-  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=add_velero_backup_scheduling"
+  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=1.1.0"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update
@@ -28,8 +28,4 @@ module "velero_minio_tenant" {
   pool_tolerations        = var.velero_minio_pool_tolerations
   pool_user_id            = var.velero_minio_pool_user_id
   pool_group_id           = var.velero_minio_pool_group_id
-
-  scheduled_backups                   = var.velero_scheduled_backups
-  scheduled_backup_common_labels      = var.velero_scheduled_backup_common_labels
-  scheduled_backup_common_annotations = var.velero_scheduled_backup_common_annotations
 }
