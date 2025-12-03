@@ -3,7 +3,7 @@ module "velero_minio_tenant" {
   depends_on = [
     module.minio_operator,
   ]
-  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=1.1.0"
+  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_tenant?ref=1.2.0"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update
