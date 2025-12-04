@@ -90,3 +90,8 @@ locals {
   }
   velero_persistentvolume_capacity_gb = 32
 }
+
+locals {
+  platform_context_namespace = "platform-storage"
+  platform_context_configmap_name = "context"
+}
