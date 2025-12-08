@@ -1,0 +1,2 @@
+openebs_storage.zfs.pool.name: "zfspv-pool"
+openebs_storage.zfs.pool.device: "/dev/sdb"

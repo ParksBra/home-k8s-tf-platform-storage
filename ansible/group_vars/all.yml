@@ -1,0 +1,18 @@
+debug: "{{ lookup('env', 'DEBUG') | default(false) | bool }}"
+
+ansible_python_interpreter: "/usr/bin/python3.13"
+
+host:
+  temp_directory: "/tmp/ansible_home"
+
+storage:
+  velero:
+    cli:
+      arch: "arm64"
+      version: "1.17.1"
+      download_url: "https://github.com/vmware-tanzu/velero/releases/download/v{{ storage.velero.cli.version }}/velero-v{{ storage.velero.cli.version }}-linux-{{ storage.velero.cli.arch }}.tar.gz"
+      install_dir: "/usr/local/bin"
+  zfs:
+    pool:
+      name: "zfspv-pool"
+      device: "/dev/sda1"

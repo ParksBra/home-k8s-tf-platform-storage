@@ -1,0 +1,13 @@
+---
+- hosts: k8s_worker
+  roles:
+    - {role: zfs/zpool_member, tags: ['zfs', 'zpool_member']}
+  become: true
+  become_user: root
+
+- hosts: k8s_controller
+  roles:
+    - {role: zfs/base, tags: ['zfs']}
+    - {role: velero_cli, tags: ['velero_cli']}
+  become: true
+  become_user: root
