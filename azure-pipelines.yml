@@ -10,12 +10,16 @@ resources:
   pipelines:
     - pipeline: cluster-base
       source: ParksBra.home-k8s-cluster-base
+      trigger:
+        stages:
+          - applyAnsible
+          - fetchKubeconfigArtifact
 
   repositories:
     - repository: templates
       type: github
       endpoint: ParksBra
-      ref: initial_development
+      ref: main
       name: ParksBra/home-k8s-ado-templates
 
 parameters:
@@ -53,35 +57,29 @@ variables:
   - group: home-k8s-terraform
 
 stages:
-  - stage: "platformStoragePrerequisites"
-    displayName: "Platform Storage Prerequisites"
-    condition: or(in(variables['Build.Reason'], 'Manual', 'IndividualCI'), and(in(variables['Build.Reason'], 'Manual'), eq('${{ parameters.ansibleApply }}', 'true')))
-    jobs:
-      - job: "ansibleApplyPlatformStoragePrerequisites"
-        displayName: "Ansible Apply Platform Storage Prerequisites"
-        steps:
-          - template: apply-ansible.yml@templates
-            parameters:
-              pythonVenvPath: "$(System.DefaultWorkingDirectory)/.venv"
-              pythonVenvCacheVersion: "1"
-              pythonRequirementsFileRelativePath: "requirements.txt"
-              ansibleRequirementsFileRelativePath: "requirements.yml"
-              ansibleRepository: "self"
-              ansibleRepositoryAnsiblePath: "ansible"
-              ansibleConfigRelativePath: "ansible.cfg"
-              ansibleSshConfigurations:
-                - group: k8s_controller
-                  user: controller
-                  keySecretFileName: "$(home-k8s-ssh-controller-key-secret-file)"
-                  keyPassphrase: ""
-                - group: k8s_worker
-                  user: worker
-                  keySecretFileName: "$(home-k8s-ssh-worker-key-secret-file)"
-                  keyPassphrase: ""
-              ansiblePlaybooks:
-                - site.yml
-              ansibleDebug: ${{ parameters.ansibleDebug }}
-              ansiblePlaybookExtraEnvironmentVariables: {}
+  - template: ansible.yml@templates
+    parameters:
+      pythonVenvPath: "$(System.DefaultWorkingDirectory)/.venv"
+      pythonVenvCacheVersion: "1"
+      pythonRequirementsFileRelativePath: "requirements.txt"
+      ansibleRequirementsFileRelativePath: "requirements.yml"
+      ansibleRepository: "self"
+      ansibleRepositoryAnsiblePath: "ansible"
+      ansibleConfigRelativePath: "ansible.cfg"
+      ansibleSshConfigurations:
+        - group: k8s_controller
+          user: controller
+          keySecretFileName: "$(home-k8s-ssh-controller-key-secret-file)"
+          keyPassphrase: ""
+        - group: k8s_worker
+          user: worker
+          keySecretFileName: "$(home-k8s-ssh-worker-key-secret-file)"
+          keyPassphrase: ""
+      ansiblePlaybooks:
+        - site.yml
+      ansibleDebug: ${{ parameters.ansibleDebug }}
+      ansiblePlaybookExtraEnvironmentVariables: {}
+      ansibleApply: ${{ parameters.ansibleApply }}
 
   - template: terraform.yml@templates
     parameters:
