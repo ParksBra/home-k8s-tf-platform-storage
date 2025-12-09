@@ -5,7 +5,6 @@ trigger:
 
 pool:
   name: 'local-lab'
-  vmImage: 'ubuntu-latest'
 
 resources:
   pipelines:
@@ -30,11 +29,6 @@ parameters:
     type: boolean
     default: true
 
-  - name: terraformApply
-    displayName: 'Enable Terraform Apply After Plan'
-    type: boolean
-    default: true
-
   - name: terraformPlanMode
     displayName: 'Terraform Plan Mode'
     type: string
@@ -43,14 +37,25 @@ parameters:
       - "destroy"
     default: "normal"
 
+  - name: terraformApply
+    displayName: 'Enable Terraform Apply After Plan (Manual Triggers Only)'
+    type: boolean
+    default: true
+
+  - name: ansibleApply
+    displayName: 'Enable Ansible Apply Before Terraform (Manual Triggers Only)'
+    type: boolean
+    default: true
+
 variables:
   - group: home-k8s-ssh
+  - group: home-k8s-cluster
+  - group: home-k8s-terraform
 
 stages:
   - stage: "platformStoragePrerequisites"
     displayName: "Platform Storage Prerequisites"
-    variables:
-      - group: home-k8s-cluster
+    condition: and(in(variables['Build.Reason'], 'Manual', 'IndividualCI'), eq(parameters.ansibleApply, true))
     jobs:
       - job: "ansibleApplyPlatformStoragePrerequisites"
         displayName: "Ansible Apply Platform Storage Prerequisites"
@@ -78,28 +83,18 @@ stages:
               ansibleDebug: ${{ parameters.ansibleDebug }}
               ansiblePlaybookExtraEnvironmentVariables: {}
 
-  - stage: "platformStorageDeployment"
-    displayName: "Platform Storage Deployment"
-    dependsOn: "platformStoragePrerequisites"
-    variables:
-      - group: home-k8s-cluster
-      - group: home-k8s-terraform
-    jobs:
-      - job: "terraformApplyPlatformStorage"
-        displayName: "Terraform Apply Platform Storage"
-        steps:
-          - template: apply-terraform.yml@templates
-            parameters:
-              kubeconfigArtifactFileName: "kubeconfig"
-              kubeconfigArtifactName: "kubeConfig"
-              kubeconfigArtifactSourcePipeline: "cluster-base"
-              terraformRepository: "self"
-              terraformRepositoryTerraformPath: "terraform"
-              terraformVersion: "latest"
-              terraformBackendNamespace: "kube-system"
-              terraformBackendSuffix: "platform-storage"
-              terraformVariables: []
-              terraformExtraEnvironmentVariables: []
-              terraformValidate: ${{ parameters.terraformValidate }}
-              terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
-              terraformApply: ${{ parameters.terraformApply }}
+  - template: terraform.yml@templates
+    parameters:
+      kubeconfigArtifactFileName: "kubeconfig"
+      kubeconfigArtifactName: "kubeConfig"
+      kubeconfigArtifactSourcePipeline: "cluster-base"
+      terraformRepository: "self"
+      terraformRepositoryTerraformPath: "terraform"
+      terraformVersion: "latest"
+      terraformBackendNamespace: "kube-system"
+      terraformBackendSuffix: "platform-storage"
+      terraformVariables: []
+      terraformExtraEnvironmentVariables: []
+      terraformValidate: ${{ parameters.terraformValidate }}
+      terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
+      terraformApply: ${{ parameters.terraformApply }}
