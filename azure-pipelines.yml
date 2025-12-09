@@ -55,7 +55,7 @@ variables:
 stages:
   - stage: "platformStoragePrerequisites"
     displayName: "Platform Storage Prerequisites"
-    condition: and(in(variables['Build.Reason'], 'Manual', 'IndividualCI'), eq(parameters.ansibleApply, true))
+    condition: or(in(variables['Build.Reason'], 'Manual', 'IndividualCI'), and(in(variables['Build.Reason'], 'Manual'), eq('${{ parameters.ansibleApply }}', 'true')))
     jobs:
       - job: "ansibleApplyPlatformStoragePrerequisites"
         displayName: "Ansible Apply Platform Storage Prerequisites"
