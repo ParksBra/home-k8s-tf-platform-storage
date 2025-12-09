@@ -94,13 +94,8 @@ stages:
               terraformVersion: "latest"
               terraformBackendNamespace: "kube-system"
               terraformBackendSuffix: "platform-storage"
-              terraformExtraEnvironmentVariables:
-                - name: AZDO_PERSONAL_ACCESS_TOKEN
-                  value: "$(System.AccessToken)"
-                - name: AZDO_ORG_SERVICE_URL
-                  value: "$(System.TeamFoundationCollectionUri)"
-                - name: CLOUDFLARE_API_TOKEN
-                  value: "$(home-k8s-terraform-provider-cloudflare-api-token)"
+              terraformVariables: {}
+              terraformExtraEnvironmentVariables: {}
               terraformValidate: ${{ parameters.terraformValidate }}
               terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
               terraformApply: ${{ parameters.terraformApply }}
