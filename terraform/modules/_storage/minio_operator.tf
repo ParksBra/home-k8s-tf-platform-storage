@@ -1,6 +1,6 @@
-module "openebs" {
-  count = var.openebs_enabled ? 1 : 0
-  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/openebs_zfs?ref=1.2.0"
+module "minio_operator" {
+  count = var.minio_operator_enabled ? 1 : 0
+  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_operator?ref=1.4.0"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update
@@ -9,6 +9,6 @@ module "openebs" {
   chart_replace           = var.chart_replace
   chart_upgrade_install   = var.chart_upgrade_install
 
-  namespace               = data.kubernetes_namespace.openebs[0].metadata[0].name
+  namespace               = data.kubernetes_namespace.minio_operator[0].metadata[0].name
   create_namespace        = false
 }

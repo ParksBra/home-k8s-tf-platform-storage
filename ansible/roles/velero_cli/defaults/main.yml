@@ -1,0 +1,4 @@
+storage.velero.cli.arch: "arm64"
+storage.velero.cli.version: "1.17.1"
+storage.velero.cli.download_url: "https://github.com/vmware-tanzu/velero/releases/download/v{{ storage.velero.cli.version }}/velero-v{{ storage.velero.cli.version }}-linux-{{ storage.velero.cli.arch }}.tar.gz"
+storage.velero.cli.install_dir: "/usr/local/bin"

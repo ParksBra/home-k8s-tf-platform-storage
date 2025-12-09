@@ -1,0 +1,100 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: 'local-lab'
+
+resources:
+  pipelines:
+    - pipeline: cluster-base
+      source: ParksBra.home-k8s-cluster-base
+
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: ParksBra
+      ref: initial_development
+      name: ParksBra/home-k8s-ado-templates
+
+parameters:
+  - name: ansibleDebug
+    displayName: 'Enable Ansible Debugging'
+    type: boolean
+    default: false
+
+  - name: terraformValidate
+    displayName: 'Enable Terraform Validation Before Plan'
+    type: boolean
+    default: true
+
+  - name: terraformPlanMode
+    displayName: 'Terraform Plan Mode'
+    type: string
+    values:
+      - "normal"
+      - "destroy"
+    default: "normal"
+
+  - name: terraformApply
+    displayName: 'Enable Terraform Apply After Plan (Manual Triggers Only)'
+    type: boolean
+    default: true
+
+  - name: ansibleApply
+    displayName: 'Enable Ansible Apply Before Terraform (Manual Triggers Only)'
+    type: boolean
+    default: true
+
+variables:
+  - group: home-k8s-ssh
+  - group: home-k8s-cluster
+  - group: home-k8s-terraform
+
+stages:
+  - stage: "platformStoragePrerequisites"
+    displayName: "Platform Storage Prerequisites"
+    condition: or(in(variables['Build.Reason'], 'Manual', 'IndividualCI'), and(in(variables['Build.Reason'], 'Manual'), eq('${{ parameters.ansibleApply }}', 'true')))
+    jobs:
+      - job: "ansibleApplyPlatformStoragePrerequisites"
+        displayName: "Ansible Apply Platform Storage Prerequisites"
+        steps:
+          - template: apply-ansible.yml@templates
+            parameters:
+              pythonVenvPath: "$(System.DefaultWorkingDirectory)/.venv"
+              pythonVenvCacheVersion: "1"
+              pythonRequirementsFileRelativePath: "requirements.txt"
+              ansibleRequirementsFileRelativePath: "requirements.yml"
+              ansibleRepository: "self"
+              ansibleRepositoryAnsiblePath: "ansible"
+              ansibleConfigRelativePath: "ansible.cfg"
+              ansibleSshConfigurations:
+                - group: k8s_controller
+                  user: controller
+                  keySecretFileName: "$(home-k8s-ssh-controller-key-secret-file)"
+                  keyPassphrase: ""
+                - group: k8s_worker
+                  user: worker
+                  keySecretFileName: "$(home-k8s-ssh-worker-key-secret-file)"
+                  keyPassphrase: ""
+              ansiblePlaybooks:
+                - site.yml
+              ansibleDebug: ${{ parameters.ansibleDebug }}
+              ansiblePlaybookExtraEnvironmentVariables: {}
+
+  - template: terraform.yml@templates
+    parameters:
+      kubeconfigArtifactFileName: "kubeconfig"
+      kubeconfigArtifactName: "kubeConfig"
+      kubeconfigArtifactSourcePipeline: "cluster-base"
+      terraformRepository: "self"
+      terraformRepositoryTerraformPath: "terraform"
+      terraformVersion: "latest"
+      terraformBackendNamespace: "kube-system"
+      terraformBackendSuffix: "platform-storage"
+      terraformVariables: []
+      terraformExtraEnvironmentVariables: []
+      terraformValidate: ${{ parameters.terraformValidate }}
+      terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
+      terraformApply: ${{ parameters.terraformApply }}
