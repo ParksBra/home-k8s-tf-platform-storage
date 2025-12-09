@@ -94,8 +94,8 @@ stages:
               terraformVersion: "latest"
               terraformBackendNamespace: "kube-system"
               terraformBackendSuffix: "platform-storage"
-              terraformVariables: {}
-              terraformExtraEnvironmentVariables: {}
+              terraformVariables: []
+              terraformExtraEnvironmentVariables: []
               terraformValidate: ${{ parameters.terraformValidate }}
               terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
               terraformApply: ${{ parameters.terraformApply }}
