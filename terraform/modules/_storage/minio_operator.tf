@@ -1,6 +1,6 @@
 module "minio_operator" {
   count = var.minio_operator_enabled ? 1 : 0
-  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_operator?ref=1.2.0"
+  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/minio_operator?ref=1.4.0"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update
