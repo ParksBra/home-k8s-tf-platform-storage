@@ -2,12 +2,14 @@
 - hosts: k8s_worker
   roles:
     - {role: zfs/zpool_member, tags: ['zfs', 'zpool_member']}
+    - {role: mayastor, tags: ['mayastor']}
   become: true
   become_user: root
 
 - hosts: k8s_controller
   roles:
     - {role: zfs/base, tags: ['zfs']}
+    - {role: mayastor, tags: ['mayastor']}
     - {role: velero_cli, tags: ['velero_cli']}
   become: true
   become_user: root
