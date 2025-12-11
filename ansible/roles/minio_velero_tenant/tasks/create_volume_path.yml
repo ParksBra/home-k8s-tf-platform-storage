@@ -1,0 +1,8 @@
+- name: Create directory and set permissions for MinIO volume path
+  ansible.builtin.file:
+    path: "{{ storage.velero.tenant.pool.volume.path }}"
+    state: directory
+    owner: "{{ storage.velero.tenant.user.name }}"
+    group: "{{ storage.velero.tenant.group.name }}"
+    mode: "0751"
+  become: true

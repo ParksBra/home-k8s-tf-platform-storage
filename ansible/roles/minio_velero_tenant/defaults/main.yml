@@ -1,0 +1,12 @@
+storage:
+  velero:
+    tenant:
+      pool:
+        volume:
+          path: "/mnt/minio-velero-data"
+      user:
+        name: "minio_velero_tenant"
+        id: 2150
+      group:
+        name: "minio_velero_tenant"
+        id: 2150

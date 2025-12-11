@@ -10,8 +10,8 @@ locals {
   minio_operator_namespace = "minio-operator"
 
   velero_namespace = "velero"
-  velero_minio_pool_user_id = 1002
-  velero_minio_pool_group_id = 1002
+  velero_minio_pool_user_id = 2150
+  velero_minio_pool_group_id = 2150
   velero_minio_pool_size_gb = 16
   velero_minio_pool_server_count = 1
   velero_minio_pool_volume_count = 1

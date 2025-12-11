@@ -1,0 +1,5 @@
+- name: Create user and group for Velero MinIO tenant
+  import_tasks: create_user_and_group.yml
+
+- name: Create volume path for Velero MinIO tenant
+  import_tasks: create_volume_path.yml

@@ -12,6 +12,17 @@ storage:
       version: "1.17.1"
       download_url: "https://github.com/vmware-tanzu/velero/releases/download/v{{ storage.velero.cli.version }}/velero-v{{ storage.velero.cli.version }}-linux-{{ storage.velero.cli.arch }}.tar.gz"
       install_dir: "/usr/local/bin"
+    tenant:
+      pool:
+        volume:
+          path: "/mnt/minio-velero-data"
+      user:
+        name: "minio_velero_tenant"
+        id: 2150
+      group:
+        name: "minio_velero_tenant"
+        id: 2150
+
   zfs:
     pool:
       name: "zfspv-pool"

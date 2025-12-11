@@ -11,5 +11,6 @@
     - {role: zfs/base, tags: ['zfs']}
     - {role: mayastor, tags: ['mayastor']}
     - {role: velero_cli, tags: ['velero_cli']}
+    - {role: minio_velero_tenant, tags: ['minio_velero_tenant']}
   become: true
   become_user: root
