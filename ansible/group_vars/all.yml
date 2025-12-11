@@ -22,8 +22,11 @@ storage:
       group:
         name: "minio_velero_tenant"
         id: 2150
-
   zfs:
     pool:
       name: "zfspv-pool"
       device: "/dev/sda1"
+  mayastor:
+    memory:
+      hugepages:
+        count: 1024

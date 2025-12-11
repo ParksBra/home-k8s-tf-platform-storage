@@ -1,7 +1,7 @@
 - name: Enable bridge-nf-call-iptables
   ansible.posix.sysctl:
     name: vm.nr_hugepages
-    value: '{{ storage.nvme_tcp.memory.hugepages.count }}'
+    value: '{{ storage.mayastor.memory.hugepages.count }}'
     state: present
     reload: true
   become: true
