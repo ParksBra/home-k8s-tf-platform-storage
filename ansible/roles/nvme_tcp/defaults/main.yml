@@ -1,0 +1,5 @@
+storage:
+  nvme_tcp:
+    memory:
+      hugepages:
+        count: 1024

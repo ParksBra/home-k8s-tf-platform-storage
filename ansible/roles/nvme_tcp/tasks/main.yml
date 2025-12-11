@@ -1,0 +1,5 @@
+- name: Configure memory for Mayastor
+  import_tasks: configure_memory.yml
+
+- name: Load Mayastor kernel modules
+  import_tasks: load_mayastor_kernel_modules.yml
