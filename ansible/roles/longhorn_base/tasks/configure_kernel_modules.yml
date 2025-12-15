@@ -1,6 +1,27 @@
-- name: Copy longhorn modules file
-  ansible.builtin.template:
-    src: longhorn_modules.conf.j2
-    dest: /etc/modules-load.d/longhorn.conf
-    mode: "0644"
+- name: Load iscsi_tcp module
+  ansible.builtin.modprobe:
+    name: iscsi_tcp
+    persistent: "present"
+    state: "present"
+  become: true
+
+- name: Load nvme-tcp module
+  ansible.builtin.modprobe:
+    name: nvme-tcp
+    persistent: "present"
+    state: "present"
+  become: true
+
+- name: Load ext4 module
+  ansible.builtin.modprobe:
+    name: ext4
+    persistent: "present"
+    state: "present"
+  become: true
+
+- name: Load xfs module
+  ansible.builtin.modprobe:
+    name: xfs
+    persistent: "present"
+    state: "present"
   become: true

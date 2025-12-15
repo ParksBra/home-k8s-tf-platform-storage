@@ -5,4 +5,5 @@
     owner: "{{ storage.velero.tenant.user.name }}"
     group: "{{ storage.velero.tenant.group.name }}"
     mode: "0751"
+    recurse: true
   become: true
