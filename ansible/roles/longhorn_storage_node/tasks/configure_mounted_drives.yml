@@ -3,5 +3,4 @@
     name: mounted_drive
   vars:
     mounted_drive_target_device: "{{ storage.longhorn.volume.device }}"
-    mounted_drive_target_partition: "{{ storage.longhorn.volume.partition }}"
     mounted_drive_mount_point: "{{ storage.longhorn.volume.path }}"

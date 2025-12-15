@@ -11,7 +11,7 @@
 - name: Mount the drive and add to fstab
   ansible.posix.mount:
     path: "{{ mounted_drive_mount_point }}"
-    src: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
+    src: "{{ partition_device }}"
     fstype: "{{ mounted_drive_filesystem }}"
     state: mounted
   ignore_errors: "{{ ansible_check_mode }}"

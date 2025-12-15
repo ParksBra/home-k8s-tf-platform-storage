@@ -36,15 +36,26 @@
       become: true
       changed_when: false
 
-    - name: Read updated device information
-      community.general.parted:
-        device: "{{ mounted_drive_target_device }}"
-        unit: GiB
-      register: partition_info
+- name: Read updated device information
+  community.general.parted:
+    device: "{{ mounted_drive_target_device }}"
+    unit: GiB
+  register: partition_info
 
-    - name: Create ext4 filesystem
-      community.general.filesystem:
-        fstype: "{{ mounted_drive_filesystem }}"
-        dev: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
-      ignore_errors: "{{ ansible_check_mode }}"
-      become: true
+- name: Determine partition device (for devices ending with a number)
+  set_fact:
+    partition_device: "{{ partition_info.disk.dev }}p{{ partition_info.partitions[0].num }}"
+  when: partition_info.disk.dev[-1:].isdigit()
+
+- name: Determine partition device (for devices ending with a letter)
+  set_fact:
+    partition_device: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
+  when: not partition_info.disk.dev[-1:].isdigit()
+
+- name: Create ext4 filesystem
+  community.general.filesystem:
+    fstype: "{{ mounted_drive_filesystem }}"
+    dev: "{{ partition_device }}"
+    state: present
+  ignore_errors: "{{ ansible_check_mode }}"
+  become: true
