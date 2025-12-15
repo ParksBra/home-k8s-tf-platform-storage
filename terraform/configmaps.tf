@@ -9,7 +9,8 @@ resource "kubernetes_config_map" "context" {
   }
 
   data = {
-    primary_storage_class_name           = kubernetes_storage_class.service.metadata[0].name
+    # primary_storage_class_name           = kubernetes_storage_class.service.metadata[0].name
+    primary_storage_class_name           = "longhorn"
     primary_storage_class_reclaim_policy = local.service_storageclass_reclaim_policy
     zfs_pool_name                        = local.zfs_pool_name
   }

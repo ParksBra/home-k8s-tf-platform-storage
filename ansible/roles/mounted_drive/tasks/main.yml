@@ -1,0 +1,5 @@
+- name: Format and partition drive if needed
+  ansible.builtin.import_tasks: format_and_partition_drive.yml
+
+- name: Mount drive
+  ansible.builtin.import_tasks: mount_drive.yml

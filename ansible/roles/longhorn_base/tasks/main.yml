@@ -1,0 +1,5 @@
+- name: Install open-iscsi
+  ansible.builtin.import_tasks: install_open_iscsi.yml
+
+- name: Configure kernel modules
+  ansible.builtin.import_tasks: configure_kernel_modules.yml

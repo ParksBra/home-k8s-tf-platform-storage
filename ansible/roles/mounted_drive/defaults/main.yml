@@ -1,0 +1,6 @@
+mounted_drive_target_device: ""
+mounted_drive_target_partition: "{{ mounted_drive_target_device }}"
+mounted_drive_partition_start: "0%"
+mounted_drive_partition_end: "100%"
+mounted_drive_filesystem: "ext4"
+mounted_drive_mount_point: "/mnt/data"

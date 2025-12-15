@@ -26,7 +26,9 @@ storage:
     pool:
       name: "zfspv-pool"
       device: "/dev/sda1"
-  mayastor:
-    memory:
-      hugepages:
-        count: 1024
+  longhorn:
+    volume:
+      device: "/dev/nvme0n1"
+      partition: "/dev/nvme0n1p1"
+      path: "/mnt/longhorn"
+

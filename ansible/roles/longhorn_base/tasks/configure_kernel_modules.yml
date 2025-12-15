@@ -1,0 +1,6 @@
+- name: Copy longhorn modules file
+  ansible.builtin.template:
+    src: longhorn_modules.conf.j2
+    dest: /etc/modules-load.d/longhorn.conf
+    mode: "0644"
+  become: true
