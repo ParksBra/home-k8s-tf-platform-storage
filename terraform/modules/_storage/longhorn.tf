@@ -20,6 +20,19 @@ resource "helm_release" "longhorn" {
     {
       name  = "persistence.reclaimPolicy"
       value = "Retain"
+    },
+    {
+      name  = "ingress.enabled"
+      value = "true"
+    },
+    {
+      name  = "ingress.ingressClassName"
+      value = "nginx"
+    },
+    {
+      name  = "ingess.host"
+      value = "longhorn.k8s.parkl.ee"
     }
   ]
 }
+
