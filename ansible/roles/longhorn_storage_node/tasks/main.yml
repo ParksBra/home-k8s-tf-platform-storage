@@ -1,0 +1,2 @@
+- name: Configure mounted drives
+  ansible.builtin.import_tasks: configure_mounted_drives.yml
