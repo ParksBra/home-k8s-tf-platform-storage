@@ -30,7 +30,7 @@ resource "helm_release" "longhorn" {
       value = "nginx"
     },
     {
-      name  = "ingess.host"
+      name  = "ingress.host"
       value = "longhorn.k8s.parkl.ee"
     }
   ]
