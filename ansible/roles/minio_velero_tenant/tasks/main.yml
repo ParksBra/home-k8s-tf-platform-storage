@@ -1,5 +1,5 @@
 - name: Create user and group for Velero MinIO tenant
   ansible.builtin.import_tasks: create_user_and_group.yml
 
-- name: Create volume path for Velero MinIO tenant
-  ansible.builtin.import_tasks: create_volume_path.yml
+- name: Configure volume for Velero MinIO tenant
+  ansible.builtin.import_tasks: configure_mounted_drives.yml

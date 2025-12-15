@@ -1,0 +1,9 @@
+- name: Format, partition, and mount disks
+  ansible.builtin.include_role:
+    name: mounted_drive
+  vars:
+    mounted_drive_target_device: "{{ storage.velero.tenant.volume.device }}"
+    mounted_drive_mount_point: "{{ storage.velero.tenant.volume.path }}"
+    mounted_drive_mount_point_mode: "{{storage.velero.tenant.mode }}"
+    mounted_drive_mount_point_owner: "{{ storage.velero.tenant.user.name }}"
+    mounted_drive_mount_point_group: "{{ storage.velero.tenant.user.group }}"

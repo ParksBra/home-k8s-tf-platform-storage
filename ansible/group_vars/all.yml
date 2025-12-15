@@ -15,7 +15,9 @@ storage:
     tenant:
       pool:
         volume:
+          device: "/dev/sda"
           path: "/mnt/minio-velero-data"
+      mode: "0751"
       user:
         name: "minio_velero_tenant"
         id: 2150
@@ -29,6 +31,5 @@ storage:
   longhorn:
     volume:
       device: "/dev/nvme0n1"
-      partition: "/dev/nvme0n1p1"
       path: "/mnt/longhorn"
 

@@ -24,8 +24,11 @@
         state: present
         part_end: "{{ mounted_drive_partition_end }}"
         part_start: "{{ mounted_drive_partition_start }}"
-        lable: gpt
-        flags: [ lvm ]
+        label: gpt
+        number: 1
+        flags:
+          - lvm
+        part_type: primary
       become: true
 
     - name: Run partprobe to update the kernel partition table
