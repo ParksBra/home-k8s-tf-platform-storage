@@ -3,6 +3,7 @@ resource "helm_release" "longhorn" {
   repository = "https://charts.longhorn.io"
   chart      = "longhorn"
   namespace  = "longhorn-system"
+  create_namespace = true
   set = [
     {
       name  = "defaultSettings.defaultDataPath"
