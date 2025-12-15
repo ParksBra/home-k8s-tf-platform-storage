@@ -9,6 +9,7 @@
   community.general.parted:
     device: "{{ mounted_drive_target_device }}"
     unit: GiB
+  changed_when: false
   register: partition_info
 
 - name: Format and Partition
@@ -40,16 +41,19 @@
   community.general.parted:
     device: "{{ mounted_drive_target_device }}"
     unit: GiB
+  changed_when: false
   register: partition_info
 
 - name: Determine partition device (for devices ending with a number)
   set_fact:
     partition_device: "{{ partition_info.disk.dev }}p{{ partition_info.partitions[0].num }}"
+  ignore_errors: "{{ ansible_check_mode }}"
   when: partition_info.disk.dev[-1:].isdigit()
 
 - name: Determine partition device (for devices ending with a letter)
   set_fact:
     partition_device: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
+  ignore_errors: "{{ ansible_check_mode }}"
   when: not partition_info.disk.dev[-1:].isdigit()
 
 - name: Create ext4 filesystem
