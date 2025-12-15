@@ -45,5 +45,5 @@
     - name: Create ext4 filesystem
       community.general.filesystem:
         fstype: "{{ mounted_drive_filesystem }}"
-        dev: "/dev/{{ partition_info.partitions[0].name }}"
+        dev: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
       become: true
