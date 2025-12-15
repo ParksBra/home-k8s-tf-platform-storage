@@ -46,4 +46,5 @@
       community.general.filesystem:
         fstype: "{{ mounted_drive_filesystem }}"
         dev: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
+      ignore_errors: "{{ ansible_check_mode }}"
       become: true

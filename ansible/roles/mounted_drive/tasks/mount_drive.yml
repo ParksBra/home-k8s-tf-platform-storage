@@ -14,4 +14,5 @@
     src: "{{ partition_info.disk.dev }}{{ partition_info.partitions[0].num }}"
     fstype: "{{ mounted_drive_filesystem }}"
     state: mounted
+  ignore_errors: "{{ ansible_check_mode }}"
   become: true
