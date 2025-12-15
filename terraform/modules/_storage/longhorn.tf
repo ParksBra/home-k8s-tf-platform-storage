@@ -1,8 +1,8 @@
 resource "helm_release" "longhorn" {
   name       = "longhorn"
-  repository = "https://longhorn.io/helm-charts"
+  repository = "https://charts.longhorn.io"
   chart      = "longhorn"
-  version    = "1.2.3"  # Specify the desired version of the Longhorn Helm chart
+  namespace  = "longhorn-system"
   set = [
     {
       name  = "defaultSettings.defaultDataPath"
