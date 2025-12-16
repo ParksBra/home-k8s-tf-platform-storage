@@ -206,6 +206,12 @@ variable "ingress_class_name" {
   default     = "nginx"
 }
 
+variable "longhorn_ingress_enabled" {
+  description = "Whether to enable the Longhorn Ingress."
+  type        = bool
+  default     = true
+}
+
 variable "longhorn_ingress_host_address" {
   description = "The hostname for the Longhorn Ingress."
   type        = string

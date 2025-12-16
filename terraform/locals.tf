@@ -118,8 +118,15 @@ locals {
 }
 
 locals {
+  longhorn_ingress_enabled = true
   longhorn_ingress_host_address = "longhorn.k8s.${local.external_domain}"
+  longhorn_ingress_tls_enabled = true
   longhorn_ingress_annotations = local.cluster_issuer_created ? {
     "cert-manager.io/cluster-issuer" = local.cluster_issuer_name
   } : {}
+
+  longhorn_storage_class_name = "longhorn"
+  longhorn_storage_replica_count = 1
+  longhorn_storage_reclaim_policy = "Delete"
+  longhorn_storage_default_path = "/mnt/longhorn"
 }
