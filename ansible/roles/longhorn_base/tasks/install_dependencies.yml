@@ -1,24 +1,13 @@
-- name: Define dependencies
-  ansible.builtin.set_fact:
-    dependencies:
-      - bash
-      - curl
-      - findmnt
-      - grep
-      - awk
-      - blkid
-      - lsblk
-      - open-iscsi
-      - nfs-common
-      - cryptsetup
-      - dmsetup
-
 - name: Install dependencies
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present
     update_cache: true
-  loop: "{{ dependencies }}"
+  loop:
+    - open-iscsi
+    - nfs-common
+    - cryptsetup
+    - dmsetup
   become: true
 
 - name: Start and enable dependency services
@@ -26,5 +15,6 @@
     name: "{{ item }}"
     state: started
     enabled: true
-  loop: "{{ dependencies }}"
+  loop:
+    - open-iscsi
   become: true
