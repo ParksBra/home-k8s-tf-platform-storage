@@ -1,5 +1,4 @@
 module "longhorn" {
-  count = var.openebs_enabled ? 1 : 0
   source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/longhorn?ref=enable-openebs-replicated-storage"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
@@ -13,8 +12,8 @@ module "longhorn" {
   ingress_enabled      = true
   ingress_class_name = var.ingress_class_name
   ingress_host_address = var.longhorn_ingress_host_address
-  ingress_tls_enabled = local.longhorn_ingress_tls_enabled
-  ingress_annotations    = local.longhorn_ingress_annotations
+  ingress_tls_enabled = var.longhorn_ingress_tls_enabled
+  ingress_annotations    = var.longhorn_ingress_annotations
 
   storage_replica_count = var.longhorn_storage_replica_count
   storage_class_name      = var.longhorn_storage_class_name
