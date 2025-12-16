@@ -38,4 +38,4 @@ storage:
 
 kubeconfig:
   user: "{{ ansible_ssh_user }}"
-  path: "/home/{{ kubernetes.controller.kubeconfig.user }}/.kube/config"
+  path: "/home/{{ kubeconfig.user }}/.kube/config"
