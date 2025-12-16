@@ -6,9 +6,3 @@
 
 - name: Configure multipathd
   ansible.builtin.import_tasks: configure_multipathd.yml
-
-- name: Install longhotnctl
-  ansible.builtin.import_tasks: install_longhornctl.yml
-
-- name: Run preflight checks
-  ansible.builtin.import_tasks: run_preflight_checks.yml
