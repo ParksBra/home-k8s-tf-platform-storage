@@ -1,0 +1,6 @@
+- name: Install longhornctl
+  ansible.builtin.get_url:
+    url: "https://github.com/longhorn/cli/releases/download/v{{ storage.longhorn.cli.version }}/longhornctl-linux-{{ storage.longhorn.cli.arch }}"
+    dest: "/usr/local/bin/longhornctl"
+    mode: '0755'
+  become: true

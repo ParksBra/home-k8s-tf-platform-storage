@@ -1,27 +1,16 @@
-- name: Load iscsi_tcp module
-  ansible.builtin.modprobe:
-    name: iscsi_tcp
-    persistent: "present"
-    state: "present"
-  become: true
+- name: Define dependent kernel modules
+  ansible.builtin.set_fact:
+    kernel_modules:
+      - iscsi_tcp
+      - nvme-tcp
+      - ext4
+      - xfs
+      - dm_crypt
 
-- name: Load nvme-tcp module
+- name: Load dependent kernel modules
+  loop: "{{ kernel_modules }}"
   ansible.builtin.modprobe:
-    name: nvme-tcp
-    persistent: "present"
-    state: "present"
-  become: true
-
-- name: Load ext4 module
-  ansible.builtin.modprobe:
-    name: ext4
-    persistent: "present"
-    state: "present"
-  become: true
-
-- name: Load xfs module
-  ansible.builtin.modprobe:
-    name: xfs
+    name: "{{ item }}"
     persistent: "present"
     state: "present"
   become: true

@@ -32,4 +32,7 @@ storage:
     volume:
       device: "/dev/nvme0n1"
       path: "/mnt/longhorn"
+    cli:
+      arch: "arm64"
+      version: "1.10.1"
 

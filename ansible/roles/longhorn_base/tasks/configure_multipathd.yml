@@ -1,0 +1,12 @@
+- name: Copy configuration template
+  ansible.builtin.template:
+    src: multipath.conf.j2
+    dest: /etc/multipath.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify: "multipathd-restart"
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
