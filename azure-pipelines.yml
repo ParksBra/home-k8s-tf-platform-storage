@@ -94,7 +94,9 @@ stages:
       terraformBackendNamespace: "kube-system"
       terraformBackendSuffix: "platform-storage"
       terraformVariables: []
-      terraformExtraEnvironmentVariables: []
+      terraformExtraEnvironmentVariables:
+        - name: CLOUDFLARE_API_TOKEN
+          value: "$(home-k8s-terraform-provider-cloudflare-api-token)"
       terraformValidate: ${{ parameters.terraformValidate }}
       terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
       terraformApply: ${{ parameters.terraformApply }}
