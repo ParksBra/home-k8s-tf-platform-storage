@@ -1,6 +1,6 @@
 - name: Define dependent kernel modules
   ansible.builtin.set_fact:
-    kernel_modules:
+    longhorn_base_kernel_modules:
       - iscsi_tcp
       - nvme-tcp
       - ext4
@@ -8,7 +8,7 @@
       - dm_crypt
 
 - name: Load dependent kernel modules
-  loop: "{{ kernel_modules }}"
+  loop: "{{ longhorn_base_kernel_modules }}"
   ansible.builtin.modprobe:
     name: "{{ item }}"
     persistent: "present"
