@@ -30,4 +30,6 @@ module "storage" {
   velero_scheduled_backups = local.velero_scheduled_backups
   velero_scheduled_backup_common_labels = local.velero_scheduled_backup_common_labels
   velero_scheduled_backup_common_annotations = local.velero_scheduled_backup_common_annotations
+
+  longhorn_ingress_host_address = local.longhorn_ingress_host_address
 }

@@ -95,3 +95,31 @@ locals {
   platform_context_namespace = "platform-storage"
   platform_context_configmap_name = "context"
 }
+
+locals {
+  # Network reference
+  external_domain = data.kubernetes_config_map.network_context.data.external_domain
+  external_ingress_ip = data.kubernetes_config_map.network_context.data.external_ingress_ip
+
+  pod_network_cidr = data.kubernetes_config_map.network_context.data.pod_network_cidr
+  service_network_cidr = data.kubernetes_config_map.network_context.data.service_network_cidr
+  cluster_domain = data.kubernetes_config_map.network_context.data.cluster_domain
+
+  cluster_issuer_created = tobool(data.kubernetes_config_map.network_context.data.cert_manager_cluster_issuer_created)
+  cluster_issuer_name = data.kubernetes_config_map.network_context.data.cert_manager_cluster_issuer_name
+
+  dns_records_default_comment = data.kubernetes_config_map.network_context.data.dns_records_default_comment
+  dns_records_proxy_enabled = tobool(data.kubernetes_config_map.network_context.data.dns_records_proxy_enabled)
+  dns_ttl_seconds = tonumber(data.kubernetes_config_map.network_context.data.dns_ttl_seconds)
+
+  ingress_class_name = data.kubernetes_config_map.network_context.data.primary_ingress_class_name
+
+  create_dns_records = true
+}
+
+locals {
+  longhorn_ingress_host_address = "longhorn.k8s.${local.external_domain}"
+  longhorn_ingress_annotations = local.cluster_issuer_created ? {
+    "cert-manager.io/cluster-issuer" = local.cluster_issuer_name
+  } : {}
+}

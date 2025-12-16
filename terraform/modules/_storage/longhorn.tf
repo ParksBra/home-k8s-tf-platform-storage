@@ -1,39 +1,23 @@
-resource "helm_release" "longhorn" {
-  name       = "longhorn"
-  repository = "https://charts.longhorn.io"
-  chart      = "longhorn"
-  namespace  = "longhorn-system"
-  version    = "1.10.1"
-  create_namespace = true
-  set = [
-    {
-      name  = "defaultSettings.defaultDataPath"
-      value = "/mnt/longhorn"
-    },
-    {
-      name  = "persistence.defaultClassReplicaCount"
-      value = "1"
-    },
-    {
-      name  = "defaultSettings.defaultLonghornStaticStorageClass"
-      value = "longhorn"
-    },
-    {
-      name  = "persistence.reclaimPolicy"
-      value = "Retain"
-    },
-    {
-      name  = "ingress.enabled"
-      value = "true"
-    },
-    {
-      name  = "ingress.ingressClassName"
-      value = "nginx"
-    },
-    {
-      name  = "ingress.host"
-      value = "longhorn.k8s.parkl.ee"
-    }
-  ]
-}
+module "longhorn" {
+  count = var.openebs_enabled ? 1 : 0
+  source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/longhorn?ref=enable-openebs-replicated-storage"
 
+  chart_cleanup_on_fail   = var.chart_cleanup_on_fail
+  chart_dependency_update = var.chart_dependency_update
+  chart_linting_enabled   = var.chart_linting_enabled
+  chart_recreate_pods     = var.chart_recreate_pods
+  chart_replace           = var.chart_replace
+  chart_upgrade_install   = var.chart_upgrade_install
+  chart_version           = var.longhorn_version
+
+  ingress_enabled      = true
+  ingress_class_name = var.ingress_class_name
+  ingress_host       = var.longhorn_ingress_host_address
+  ingress_tls_enabled = local.longhorn_ingress_tls_enabled
+  ingress_annotations    = local.longhorn_ingress_annotations
+
+  storage_replica_count = var.longhorn_storage_replica_count
+  storage_class_name      = var.longhorn_storage_class_name
+  storage_reclaim_policy = var.longhorn_storage_reclaim_policy
+  storage_default_path = var.longhorn_storage_default_path
+}
