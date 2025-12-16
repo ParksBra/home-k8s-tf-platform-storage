@@ -84,6 +84,11 @@ output "longhorn_storage_class_name" {
   value       = module.longhorn.storage_class_name
 }
 
+output "longhorn_storage_class_reclaim_policy" {
+  description = "The reclaim policy of the Longhorn storage class."
+  value       = module.longhorn.storage_class_reclaim_policy
+}
+
 output "longhorn_ingress_enabled" {
   description = "Indicates if the Longhorn ingress is enabled."
   value       = module.longhorn.ingress_enabled

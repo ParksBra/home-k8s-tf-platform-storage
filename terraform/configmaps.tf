@@ -11,6 +11,6 @@ resource "kubernetes_config_map" "context" {
   data = {
     # primary_storage_class_name           = kubernetes_storage_class.service.metadata[0].name
     primary_storage_class_name           = module.storage.longhorn_storage_class_name
-    primary_storage_class_reclaim_policy = module.storage.longhorn
+    primary_storage_class_reclaim_policy = module.storage.longhorn_storage_class_reclaim_policy
   }
 }
