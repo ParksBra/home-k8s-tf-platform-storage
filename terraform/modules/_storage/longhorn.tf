@@ -12,7 +12,7 @@ module "longhorn" {
 
   ingress_enabled      = true
   ingress_class_name = var.ingress_class_name
-  ingress_host       = var.longhorn_ingress_host_address
+  ingress_host_address = var.longhorn_ingress_host_address
   ingress_tls_enabled = local.longhorn_ingress_tls_enabled
   ingress_annotations    = local.longhorn_ingress_annotations
 
