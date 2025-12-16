@@ -9,14 +9,14 @@ data "cloudflare_zone" "external_domain" {
 }
 
 resource "cloudflare_dns_record" "longhorn" {
-  count = local.create_dns_records && module.network.longhorn_ingress_enabled ? 1 : 0
+  count = local.create_dns_records && module.storage.longhorn_ingress_enabled ? 1 : 0
   depends_on = [
     data.kubernetes_config_map.network_context,
     data.cloudflare_zone.external_domain,
-    module.network
+    module.storage
   ]
   zone_id = data.cloudflare_zone.external_domain[0].id
-  name = module.network.longhorn_ingress_host_address
+  name = module.storage.longhorn_ingress_host_address
   ttl = local.dns_ttl_seconds
   proxied = local.dns_records_proxy_enabled
   type = "A"
