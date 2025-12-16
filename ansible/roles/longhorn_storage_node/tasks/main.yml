@@ -7,3 +7,6 @@
     mounted_drive_mount_point_mode: "0755"
     mounted_drive_mount_point_owner: "{{ ansible_ssh_user }}"
     mounted_drive_mount_point_group: "{{ ansible_ssh_user }}"
+
+- name: Configure multipathd
+  ansible.builtin.import_tasks: configure_multipathd.yml

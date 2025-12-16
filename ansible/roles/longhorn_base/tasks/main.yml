@@ -3,6 +3,3 @@
 
 - name: Configure kernel modules
   ansible.builtin.import_tasks: configure_kernel_modules.yml
-
-- name: Configure multipathd
-  ansible.builtin.import_tasks: configure_multipathd.yml

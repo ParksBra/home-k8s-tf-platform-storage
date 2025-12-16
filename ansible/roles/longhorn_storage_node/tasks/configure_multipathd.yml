@@ -1,0 +1,6 @@
+- name: Disable and stop multipathd service
+  systemd:
+    name: multipathd
+    enabled: false
+    state: stopped
+  become: true
