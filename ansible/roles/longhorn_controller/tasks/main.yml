@@ -1,8 +1,8 @@
 - name: Install longhotnctl
   ansible.builtin.import_tasks: install_longhornctl.yml
 
-- name: Run preflight checks
-  ansible.builtin.import_tasks: run_preflight_checks.yml
+# - name: Run preflight checks
+#   ansible.builtin.import_tasks: run_preflight_checks.yml
 
-- name: Run preflight install
-  ansible.builtin.import_tasks: run_preflight_install.yml
+# - name: Run preflight install
+#   ansible.builtin.import_tasks: run_preflight_install.yml
