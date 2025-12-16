@@ -1,6 +1,6 @@
 # module "openebs" {
 #   count = var.openebs_enabled ? 1 : 0
-#   source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/openebs?ref=enable-openebs-replicated-storage"
+#   source = "openebs"
 
 #   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
 #   chart_dependency_update = var.chart_dependency_update
