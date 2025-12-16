@@ -1,6 +1,9 @@
 module "longhorn" {
   source = "git::https://github.com/ParksBra/home-k8s-tf-lib//modules/longhorn?ref=enable-openebs-replicated-storage"
 
+  namespace               = data.kubernetes_namespace.longhorn.metadata[0].name
+  create_namespace        = false
+
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update
   chart_linting_enabled   = var.chart_linting_enabled

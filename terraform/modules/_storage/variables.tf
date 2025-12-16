@@ -54,6 +54,18 @@ variable "create_openebs_namespace" {
   default     = true
 }
 
+variable "longhorn_namespace" {
+  description = "The Kubernetes namespace in which to deploy Longhorn."
+  type        = string
+  default     = "longhorn-system"
+}
+
+variable "create_longhorn_namespace" {
+  description = "Whether to create the Longhorn namespace."
+  type        = bool
+  default     = true
+}
+
 variable "minio_operator_enabled" {
   description = "Whether to deploy the MinIO Operator."
   type        = bool

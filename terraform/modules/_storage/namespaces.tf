@@ -48,3 +48,19 @@ data "kubernetes_namespace" "velero" {
     name = var.velero_namespace
   }
 }
+
+resource "kubernetes_namespace" "longhorn" {
+  count = var.create_longhorn_namespace ? 1 : 0
+  metadata {
+    name = var.longhorn_namespace
+  }
+}
+
+data "kubernetes_namespace" "longhorn" {
+  depends_on = [
+    kubernetes_namespace.longhorn,
+  ]
+  metadata {
+    name = var.velero_namespace
+  }
+}
