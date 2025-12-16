@@ -1,6 +1,6 @@
 - name: Check preflight
   ansible.builtin.command:
-    cmd: "longhornctl --kube-config {{ kubeconfig.path }} --image longhornio/longhorn-cli:v{{ storage.longhorn.cli.version }} check preflight"
+    cmd: "longhornctl --kubeconfig {{ kubeconfig.path }} check preflight"
   register: longhorn_base_preflight_check
   failed_when: longhorn_base_preflight_check.rc != 0
   changed_when: false
@@ -8,7 +8,7 @@
 
 - name: Check preflight
   ansible.builtin.command:
-    cmd: "longhornctl --kube-config {{ kubeconfig.path }} --image longhornio/longhorn-cli:v{{ storage.longhorn.cli.version }} install preflight"
+    cmd: "longhornctl --kubeconfig {{ kubeconfig.path }} install preflight"
   register: longhorn_base_preflight_check
   failed_when: longhorn_base_preflight_check.rc != 0
   changed_when: false
