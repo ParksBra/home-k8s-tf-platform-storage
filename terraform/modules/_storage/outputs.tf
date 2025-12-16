@@ -89,7 +89,7 @@ output "longhorn_ingress_enabled" {
   value       = module.longhorn.ingress_enabled
 }
 
-output "longhorn_ingress_host_address" {
+output "longhorn_ingress_address" {
   description = "The host for the Longhorn ingress."
-  value       = module.longhorn.ingress_host_address
+  value       = module.longhorn.ingress_address
 }
