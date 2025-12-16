@@ -118,6 +118,7 @@ locals {
 }
 
 locals {
+  longhorn_namespace = "longhorn-system"
   longhorn_ingress_enabled = true
   longhorn_ingress_host_address = "longhorn.k8s.${local.external_domain}"
   longhorn_ingress_tls_enabled = true

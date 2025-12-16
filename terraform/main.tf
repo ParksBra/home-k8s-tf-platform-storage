@@ -33,6 +33,8 @@ module "storage" {
 
   ingress_class_name = local.ingress_class_name
 
+  longhorn_namespace = local.longhorn_namespace
+
   longhorn_ingress_enabled = local.longhorn_ingress_enabled
   longhorn_ingress_host_address = local.longhorn_ingress_host_address
   longhorn_ingress_tls_enabled = local.longhorn_ingress_tls_enabled
