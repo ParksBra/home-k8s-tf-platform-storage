@@ -1,5 +1,5 @@
 module "longhorn" {
-  source = "./longhorn"
+  source = "../longhorn"
 
   namespace               = data.kubernetes_namespace.longhorn.metadata[0].name
   create_namespace        = false

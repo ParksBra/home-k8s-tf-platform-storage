@@ -3,7 +3,7 @@ module "velero" {
   depends_on = [
     module.velero_minio_tenant,
   ]
-  source = "./velero_s3_backup"
+  source = "../velero_s3_backup"
 
   chart_cleanup_on_fail       = var.chart_cleanup_on_fail
   chart_dependency_update     = var.chart_dependency_update

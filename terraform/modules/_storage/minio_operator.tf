@@ -1,6 +1,6 @@
 module "minio_operator" {
   count = var.minio_operator_enabled ? 1 : 0
-  source = "./minio_operator"
+  source = "../minio_operator"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update
