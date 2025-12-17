@@ -13,7 +13,7 @@ module "longhorn" {
   chart_version           = var.longhorn_version
 
   ingress_enabled      = var.longhorn_ingress_enabled
-  ingress_class_name = var.ingress_class_name
+  ingress_class_name = var.longhorn_ingress_class_name
   ingress_host_address = var.longhorn_ingress_host_address
   ingress_tls_enabled = var.longhorn_ingress_tls_enabled
   ingress_annotations    = var.longhorn_ingress_annotations

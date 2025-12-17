@@ -200,8 +200,8 @@ variable "longhorn_version" {
   default     = "1.10.1"
 }
 
-variable "ingress_class_name" {
-  description = "The name of the Ingress class to use for frontends."
+variable "longhorn_ingress_class_name" {
+  description = "The name of the Ingress class to use for Longhorn."
   type        = string
   default     = "nginx"
 }

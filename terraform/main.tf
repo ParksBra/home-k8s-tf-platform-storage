@@ -31,11 +31,10 @@ module "storage" {
   velero_scheduled_backup_common_labels = local.velero_scheduled_backup_common_labels
   velero_scheduled_backup_common_annotations = local.velero_scheduled_backup_common_annotations
 
-  ingress_class_name = local.ingress_class_name
-
   longhorn_namespace = local.longhorn_namespace
 
   longhorn_ingress_enabled = local.longhorn_ingress_enabled
+  longhorn_ingress_class_name = local.longhorn_ingress_class_name
   longhorn_ingress_host_address = local.longhorn_ingress_host_address
   longhorn_ingress_tls_enabled = local.longhorn_ingress_tls_enabled
   longhorn_ingress_annotations = local.longhorn_ingress_annotations
