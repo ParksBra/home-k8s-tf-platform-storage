@@ -3,7 +3,7 @@ module "velero_minio_tenant" {
   depends_on = [
     module.minio_operator,
   ]
-  source = "minio_tenant"
+  source = "./minio_tenant"
 
   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
   chart_dependency_update = var.chart_dependency_update

@@ -1,6 +1,6 @@
 # module "openebs" {
 #   count = var.openebs_enabled ? 1 : 0
-#   source = "openebs"
+#   source = "./openebs"
 
 #   chart_cleanup_on_fail   = var.chart_cleanup_on_fail
 #   chart_dependency_update = var.chart_dependency_update
