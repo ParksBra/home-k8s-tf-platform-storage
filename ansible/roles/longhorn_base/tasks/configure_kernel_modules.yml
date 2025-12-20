@@ -1,0 +1,11 @@
+- name: Load dependent kernel modules
+  ansible.builtin.modprobe:
+    name: "{{ item }}"
+    persistent: "present"
+    state: "present"
+  loop:
+    - iscsi_tcp
+    - ext4
+    - xfs
+    - dm_crypt
+  become: true

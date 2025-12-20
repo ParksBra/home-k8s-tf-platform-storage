@@ -1,0 +1,7 @@
+- name: Install preflight
+  ansible.builtin.command:
+    cmd: "longhornctl --kubeconfig {{ kubeconfig.path }} install preflight"
+  register: longhorn_base_preflight_check
+  failed_when: longhorn_base_preflight_check.rc != 0
+  changed_when: false
+  become: true

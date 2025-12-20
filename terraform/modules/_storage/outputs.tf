@@ -78,3 +78,23 @@ output "velero_minio_tenant_bucket_endpoint" {
   description = "The bucket endpoint used by Velero in the MinIO tenant."
   value       = local.velero_bucket_endpoint
 }
+
+output "longhorn_storage_class_name" {
+  description = "The name of the Longhorn storage class."
+  value       = module.longhorn.storage_class_name
+}
+
+output "longhorn_storage_class_reclaim_policy" {
+  description = "The reclaim policy of the Longhorn storage class."
+  value       = module.longhorn.storage_class_reclaim_policy
+}
+
+output "longhorn_ingress_enabled" {
+  description = "Indicates if the Longhorn ingress is enabled."
+  value       = module.longhorn.ingress_enabled
+}
+
+output "longhorn_ingress_address" {
+  description = "The host for the Longhorn ingress."
+  value       = module.longhorn.ingress_address
+}

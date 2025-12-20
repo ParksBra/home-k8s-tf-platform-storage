@@ -8,15 +8,14 @@ pool:
 
 resources:
   pipelines:
-    - pipeline: cluster-base
-      source: ParksBra.home-k8s-cluster-base
+    - pipeline: platform-network
+      source: ParksBra.home-k8s-tf-platform-network
       trigger:
         branches:
           include:
             - main
         stages:
-          - applyAnsible
-          - fetchKubeconfigArtifact
+          - applyTerraform
 
   repositories:
     - repository: templates
@@ -62,8 +61,7 @@ variables:
 stages:
   - template: ansible.yml@templates
     parameters:
-      pythonVenvPath: "$(System.DefaultWorkingDirectory)/.venv"
-      pythonVenvCacheVersion: "1"
+      pythonVenvCacheVersion: "2"
       pythonRequirementsFileRelativePath: "requirements.txt"
       ansibleRequirementsFileRelativePath: "requirements.yml"
       ansibleRepository: "self"
@@ -95,7 +93,9 @@ stages:
       terraformBackendNamespace: "kube-system"
       terraformBackendSuffix: "platform-storage"
       terraformVariables: []
-      terraformExtraEnvironmentVariables: []
+      terraformExtraEnvironmentVariables:
+        - name: CLOUDFLARE_API_TOKEN
+          value: "$(home-k8s-terraform-provider-cloudflare-api-token)"
       terraformValidate: ${{ parameters.terraformValidate }}
       terraformPlanDestroy: ${{ eq(parameters.terraformPlanMode, 'destroy') }}
       terraformApply: ${{ parameters.terraformApply }}

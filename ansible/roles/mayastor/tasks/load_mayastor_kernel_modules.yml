@@ -1,0 +1,6 @@
+- name: Copy mayastor modules file
+  ansible.builtin.template:
+    src: mayastor_modules.conf.j2
+    dest: /etc/modules-load.d/mayastor.conf
+    mode: "0644"
+  become: true

@@ -1,0 +1,24 @@
+- name: Ensure mount point exists
+  ansible.builtin.file:
+    path: "{{ mounted_drive_mount_point }}"
+    state: directory
+  become: true
+
+- name: Mount the drive and add to fstab
+  ansible.posix.mount:
+    path: "{{ mounted_drive_mount_point }}"
+    src: "{{ partition_device }}"
+    fstype: "{{ mounted_drive_filesystem }}"
+    state: mounted
+  ignore_errors: "{{ ansible_check_mode }}"
+  become: true
+
+- name: Ensure permissions are set for mount point
+  ansible.builtin.file:
+    path: "{{ mounted_drive_mount_point }}"
+    state: directory
+    mode: "{{ mounted_drive_mount_point_mode }}"
+    owner: "{{ mounted_drive_mount_point_owner }}"
+    group: "{{ mounted_drive_mount_point_group }}"
+    recurse: true
+  become: true

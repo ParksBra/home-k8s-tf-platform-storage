@@ -1,13 +1,18 @@
 ---
 - hosts: k8s_worker
   roles:
-    - {role: zfs/zpool_member, tags: ['zfs', 'zpool_member']}
+    # - {role: zfs/zpool_member, tags: ['zfs', 'zpool_member']}
+    # - {role: mayastor, tags: ['mayastor']}
+    - {role: longhorn_storage_node, tags: ['longhorn']}
   become: true
   become_user: root
 
 - hosts: k8s_controller
   roles:
-    - {role: zfs/base, tags: ['zfs']}
+    # - {role: zfs/base, tags: ['zfs']}
+    # - {role: mayastor, tags: ['mayastor']}
+    - {role: longhorn_controller, tags: ['longhorn']}
     - {role: velero_cli, tags: ['velero_cli']}
+    - {role: minio_velero_tenant, tags: ['minio_velero_tenant']}
   become: true
   become_user: root

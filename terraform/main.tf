@@ -30,4 +30,17 @@ module "storage" {
   velero_scheduled_backups = local.velero_scheduled_backups
   velero_scheduled_backup_common_labels = local.velero_scheduled_backup_common_labels
   velero_scheduled_backup_common_annotations = local.velero_scheduled_backup_common_annotations
+
+  longhorn_namespace = local.longhorn_namespace
+
+  longhorn_ingress_enabled = local.longhorn_ingress_enabled
+  longhorn_ingress_class_name = local.longhorn_ingress_class_name
+  longhorn_ingress_host_address = local.longhorn_ingress_host_address
+  longhorn_ingress_tls_enabled = local.longhorn_ingress_tls_enabled
+  longhorn_ingress_annotations = local.longhorn_ingress_annotations
+
+  longhorn_storage_class_name = local.longhorn_storage_class_name
+  longhorn_storage_replica_count = local.longhorn_storage_replica_count
+  longhorn_storage_reclaim_policy = local.longhorn_storage_reclaim_policy
+  longhorn_storage_default_path = local.longhorn_storage_default_path
 }

@@ -1,0 +1,5 @@
+storage:
+  mayastor:
+    memory:
+      hugepages:
+        count: 1024

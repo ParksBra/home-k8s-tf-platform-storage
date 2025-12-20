@@ -1,0 +1,5 @@
+- name: Install dependencies
+  ansible.builtin.import_tasks: install_dependencies.yml
+
+- name: Configure kernel modules
+  ansible.builtin.import_tasks: configure_kernel_modules.yml

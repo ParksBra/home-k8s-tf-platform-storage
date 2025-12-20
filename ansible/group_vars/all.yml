@@ -12,7 +12,30 @@ storage:
       version: "1.17.1"
       download_url: "https://github.com/vmware-tanzu/velero/releases/download/v{{ storage.velero.cli.version }}/velero-v{{ storage.velero.cli.version }}-linux-{{ storage.velero.cli.arch }}.tar.gz"
       install_dir: "/usr/local/bin"
+    tenant:
+      pool:
+        volume:
+          device: "/dev/sda"
+          path: "/mnt/minio-velero-data"
+      mode: "0751"
+      user:
+        name: "minio_velero_tenant"
+        id: 2150
+      group:
+        name: "minio_velero_tenant"
+        id: 2150
   zfs:
     pool:
       name: "zfspv-pool"
       device: "/dev/sda1"
+  longhorn:
+    volume:
+      device: "/dev/nvme0n1"
+      path: "/mnt/longhorn"
+    cli:
+      arch: "arm64"
+      version: "1.10.1"
+
+kubeconfig:
+  user: "{{ ansible_ssh_user }}"
+  path: "/home/{{ kubeconfig.user }}/.kube/config"

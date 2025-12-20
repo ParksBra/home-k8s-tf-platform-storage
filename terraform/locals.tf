@@ -10,8 +10,8 @@ locals {
   minio_operator_namespace = "minio-operator"
 
   velero_namespace = "velero"
-  velero_minio_pool_user_id = 1002
-  velero_minio_pool_group_id = 1002
+  velero_minio_pool_user_id = 2150
+  velero_minio_pool_group_id = 2150
   velero_minio_pool_size_gb = 16
   velero_minio_pool_server_count = 1
   velero_minio_pool_volume_count = 1
@@ -94,4 +94,42 @@ locals {
 locals {
   platform_context_namespace = "platform-storage"
   platform_context_configmap_name = "context"
+}
+
+locals {
+  # Network reference
+  external_domain = data.kubernetes_config_map.network_context.data.external_domain
+  external_ingress_ip = data.kubernetes_config_map.network_context.data.external_ingress_ip
+
+  pod_network_cidr = data.kubernetes_config_map.network_context.data.pod_network_cidr
+  service_network_cidr = data.kubernetes_config_map.network_context.data.service_network_cidr
+  cluster_domain = data.kubernetes_config_map.network_context.data.cluster_domain
+
+  cluster_issuer_created = tobool(data.kubernetes_config_map.network_context.data.cert_manager_cluster_issuer_created)
+  cluster_issuer_name = data.kubernetes_config_map.network_context.data.cert_manager_cluster_issuer_name
+
+  dns_records_default_comment = data.kubernetes_config_map.network_context.data.dns_records_default_comment
+  dns_records_proxy_enabled = tobool(data.kubernetes_config_map.network_context.data.dns_records_proxy_enabled)
+  dns_ttl_seconds = tonumber(data.kubernetes_config_map.network_context.data.dns_ttl_seconds)
+
+  ingress_class_name = data.kubernetes_config_map.network_context.data.primary_ingress_class_name
+
+  create_dns_records = true
+}
+
+locals {
+  longhorn_namespace = "longhorn-system"
+
+  longhorn_ingress_enabled = true
+  longhorn_ingress_class_name = local.ingress_class_name
+  longhorn_ingress_host_address = "longhorn.k8s.${local.external_domain}"
+  longhorn_ingress_tls_enabled = true
+  longhorn_ingress_annotations = local.cluster_issuer_created ? {
+    "cert-manager.io/cluster-issuer" = local.cluster_issuer_name
+  } : {}
+
+  longhorn_storage_class_name = "longhorn"
+  longhorn_storage_replica_count = 1
+  longhorn_storage_reclaim_policy = "Delete"
+  longhorn_storage_default_path = "/mnt/longhorn"
 }

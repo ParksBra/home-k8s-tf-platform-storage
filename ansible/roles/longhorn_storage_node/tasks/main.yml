@@ -1,0 +1,12 @@
+- name: Format, partition, and mount disks
+  ansible.builtin.include_role:
+    name: mounted_drive
+  vars:
+    mounted_drive_target_device: "{{ storage.longhorn.volume.device }}"
+    mounted_drive_mount_point: "{{ storage.longhorn.volume.path }}"
+    mounted_drive_mount_point_mode: "0755"
+    mounted_drive_mount_point_owner: "{{ ansible_ssh_user }}"
+    mounted_drive_mount_point_group: "{{ ansible_ssh_user }}"
+
+- name: Configure multipathd
+  ansible.builtin.import_tasks: configure_multipathd.yml

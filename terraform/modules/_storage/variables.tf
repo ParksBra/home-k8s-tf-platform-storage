@@ -54,6 +54,18 @@ variable "create_openebs_namespace" {
   default     = true
 }
 
+variable "longhorn_namespace" {
+  description = "The Kubernetes namespace in which to deploy Longhorn."
+  type        = string
+  default     = "longhorn-system"
+}
+
+variable "create_longhorn_namespace" {
+  description = "Whether to create the Longhorn namespace."
+  type        = bool
+  default     = true
+}
+
 variable "minio_operator_enabled" {
   description = "Whether to deploy the MinIO Operator."
   type        = bool
@@ -180,4 +192,64 @@ variable "velero_scheduled_backup_common_annotations" {
   description = "Common annotations to apply to all Velero scheduled backups."
   type        = map(string)
   default     = {}
+}
+
+variable "longhorn_version" {
+  description = "The chart version of Longhorn to deploy."
+  type        = string
+  default     = "1.10.1"
+}
+
+variable "longhorn_ingress_class_name" {
+  description = "The name of the Ingress class to use for Longhorn."
+  type        = string
+  default     = "nginx"
+}
+
+variable "longhorn_ingress_enabled" {
+  description = "Whether to enable the Longhorn Ingress."
+  type        = bool
+  default     = true
+}
+
+variable "longhorn_ingress_host_address" {
+  description = "The hostname for the Longhorn Ingress."
+  type        = string
+  default     = "longhorn.local"
+}
+
+variable "longhorn_ingress_tls_enabled" {
+  description = "Whether to enable TLS for the Longhorn Ingress."
+  type        = bool
+  default     = true
+}
+
+variable "longhorn_ingress_annotations" {
+  description = "Annotations to apply to the Longhorn Ingress."
+  type        = map(string)
+  default     = {}
+}
+
+variable "longhorn_storage_replica_count" {
+  description = "The number of replicas for Longhorn storage."
+  type        = number
+  default     = 2
+}
+
+variable "longhorn_storage_class_name" {
+  description = "The name of the Longhorn storage class to create."
+  type        = string
+  default     = "longhorn"
+}
+
+variable "longhorn_storage_reclaim_policy" {
+  description = "The reclaim policy for the Longhorn storage class."
+  type        = string
+  default     = "Delete"
+}
+
+variable "longhorn_storage_default_path" {
+  description = "The default path for Longhorn storage across nodes."
+  type        = string
+  default     = "/var/lib/longhorn"
 }

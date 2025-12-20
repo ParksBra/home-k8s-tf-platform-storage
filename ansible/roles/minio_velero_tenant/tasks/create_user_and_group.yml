@@ -1,0 +1,17 @@
+- name: Create tenant group for Velero MinIO storage
+  ansible.builtin.group:
+    name: "{{ storage.velero.tenant.group.name }}"
+    gid: "{{ storage.velero.tenant.group.id }}"
+    state: present
+    system: true
+  become: true
+
+- name: Create tenant user for Velero MinIO storage
+  ansible.builtin.user:
+    name: "{{ storage.velero.tenant.user.name }}"
+    uid: "{{ storage.velero.tenant.user.id }}"
+    group: "{{ storage.velero.tenant.group.name }}"
+    create_home: false
+    system: true
+    state: present
+  become: true

@@ -1,0 +1,20 @@
+- name: Install dependencies
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  loop:
+    - open-iscsi
+    - nfs-common
+    - cryptsetup
+    - dmsetup
+  become: true
+
+- name: Start and enable dependency services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop:
+    - open-iscsi
+  become: true
