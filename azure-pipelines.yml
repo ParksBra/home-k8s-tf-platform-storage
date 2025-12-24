@@ -8,6 +8,8 @@ pool:
 
 resources:
   pipelines:
+    - pipeline: cluster-base
+      source: ParksBra.home-k8s-cluster-base
     - pipeline: platform-network
       source: ParksBra.home-k8s-tf-platform-network
       trigger:
