@@ -1,7 +1,12 @@
+- name: Gather service facts
+  ansible.builtin.service_facts:
+
 - name: Disable and stop multipathd service
-  systemd:
+  ansible.builtin.systemd:
     name: multipathd
     enabled: false
     state: stopped
   become: true
-  ignore_errors: true # We don't want to fail if multipathd is not installed
+  vars:
+    available_services: "{{ ansible_facts.services | map(attribute='name') }}"
+  when: "'multipathd.service' in available_services"
