@@ -4,3 +4,4 @@
     enabled: false
     state: stopped
   become: true
+  ignore_errors: true # We don't want to fail if multipathd is not installed

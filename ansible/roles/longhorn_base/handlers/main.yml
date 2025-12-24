@@ -1,6 +1,0 @@
-- name: Restart multipath service
-  ansible.builtin.service:
-    name: multipathd
-    state: restarted
-  become: true
-  listen: "multipathd-restart"
