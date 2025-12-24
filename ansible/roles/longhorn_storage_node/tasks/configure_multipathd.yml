@@ -7,6 +7,4 @@
     enabled: false
     state: stopped
   become: true
-  vars:
-    available_services: "{{ ansible_facts.services | map(attribute='name') }}"
-  when: "'multipathd.service' in available_services"
+  when: "'multipathd.service' in ansible_facts.services"
