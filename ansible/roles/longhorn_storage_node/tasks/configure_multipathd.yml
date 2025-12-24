@@ -1,6 +1,10 @@
+- name: Gather service facts
+  ansible.builtin.service_facts:
+
 - name: Disable and stop multipathd service
-  systemd:
+  ansible.builtin.systemd:
     name: multipathd
     enabled: false
     state: stopped
   become: true
+  when: "'multipathd.service' in ansible_facts.services"
