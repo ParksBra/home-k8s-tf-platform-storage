@@ -61,6 +61,6 @@ data "kubernetes_namespace" "longhorn" {
     kubernetes_namespace.longhorn,
   ]
   metadata {
-    name = var.velero_namespace
+    name = var.longhorn_namespace
   }
 }
